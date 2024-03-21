@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo list on vanilla JS, HTML, CSS</title>
+    <meta
+      name="description"
+      content="Attempt to make a simple thing on vanillas"
+    />
+    <link rel="stylesheet" href="todo.css" />
+  </head>
+  <body class="light">
+    <header id="header">
+      <h1>Список задач</h1>
+
+      <div class="settings">
+        <label for="save-todos"
+          >Сохранять задачи локально?
+          <input type="checkbox" id="save-todos" name="save-todos" />
+        </label>
+
+        <label for="fetch-rand"
+          >Загружать случайные значения?
+          <input type="checkbox" id="fetch-rand" name="fetch-rand" />
+        </label>
+      </div>
+
+      <label for="dark-mode" class="theme-switch theme-switch-light">
+        <input type="checkbox" id="dark-mode" name="dark-mode" />
+      </label>
+    </header>
+
+    <main id="main">
+      <ul class="todos-list" id="todos"></ul>
+
+      <form id="todo-add-form">
+        <input
+          type="text"
+          id="todo-input"
+          class="todo-input"
+          placeholder="Что хотите сделать?"
+          autocomplete="off"
+        />
+        <button id="todo-add-btn" type="submit" disabled>Добавить</button>
+      </form>
+    </main>
+
+    <footer id="footer">
+      <p>yeah, and?</p>
+    </footer>
+
+    <script src="todo.js"></script>
+  </body>
+</html>
