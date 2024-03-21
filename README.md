@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # yet another useless todo list
 
 in sake of deploying it somewhere for free so i can enter it from phone while laying in my bed
@@ -17,3 +18,7 @@ Things to improve:
 - clean button
 - better styling (change id selectors to classes)
 and many more
+=======
+# night-without-stars
+ugly looking todo list that should not exist
+>>>>>>> 54c1137313d343132efe94fa0ae9fc7d3a8d59c7
