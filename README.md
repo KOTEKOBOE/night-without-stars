@@ -17,6 +17,3 @@ Things to improve:
 - clean button
 - better styling (change id selectors to classes)
 and many more
-=======
-# night-without-stars
-ugly looking todo list that should not exist
