@@ -617,7 +617,7 @@ body > * {
   .footer__text {
     grid-area: 2 / 2;
   }
-  .footer__controls {
+  .footer__toolbar {
     grid-column: 1 / span 3;
   }
 }
