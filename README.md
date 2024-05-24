@@ -1,19 +1,27 @@
-# yet another useless todo list
+# Yet another todo list
+Trivial thing.
+Thank god its not using React tho', yet
 
-in sake of deploying it somewhere for free so i can enter it from phone while laying in my bed
+Main goal is to using only vanilla JS, CSS and HTML
+## Made so far
+ - add/edit/remove todo;
+ - sort todos by time;
+ - clear whole list;
+ - settings:
+  - saving list into local storage (by default);
+  - fetching random text as todos, quantity can be specified.
+ - localization in english and russian;
+ - switching between light and dark themes;
+ - todo color customization;
+ - somewhat BEM-styled CSS
 
-Made so far:
-- broken theme changing
-- fetch random stuff for test purposes
-- save list to local storage
+## Further development
+It's become kinda hard, mainly because of bad structure ('twas a mistake to not using modules before), so the next step is to start using Vite (hot reload, postcss, plugins and so on, very useful) as bundler.
+*and rewrite nearly everything, yeah*
 
-Things to improve:
-- list sharing (at least save it to file)
-- llist of completed todos
-- existing todos changing
-- changing todo position in list
-- better responsivity
-- confirm removing
-- clean button
-- better styling (change id selectors to classes)
-and many more
+### Yet to be made features after migration
+ - components with separated styles;
+ - lazy loading for most nonessential things;
+ - dnd;
+ - complete status for todo (w/ filter, mass complete, restoring, etc.);
+ - import and export list from/to json file.

@@ -4,53 +4,238 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ToDo list on vanilla JS, HTML, CSS</title>
-    <meta
-      name="description"
-      content="Attempt to make a simple thing on vanillas"
+    <title>Things you should do in the near future list of</title>
+    <meta name="description" content="proof of capability" />
+    <meta name="author" content="dancing coffee steam" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./public/icons/apple-touch-icon.png"
     />
-    <link rel="stylesheet" href="todo.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./public/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./public/icons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./public/icons/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./public/icons/safari-pinned-tab.svg"
+      color="#9d9d9d"
+    />
+    <meta name="msapplication-TileColor" content="#333333" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="stylesheet" href="./src/styles/normalize.min.css" />
+    <link rel="stylesheet" href="./src/styles/global.css" />
   </head>
-  <body class="light">
-    <header id="header">
-      <h1>Список задач</h1>
+  <body>
+    <script src="./src/theme/initTheme.js"></script>
 
-      <div class="settings">
-        <label for="save-todos"
-          >Сохранять задачи локально?
-          <input type="checkbox" id="save-todos" name="save-todos" />
-        </label>
+    <div class="bg-image"></div>
+    <div class="settings-modal hidden" id="settings-modal"></div>
+    <header id="header" class="header">
+      <div class="header__controls">
+        <button
+          class="controls__theme-switcher btn_text-only"
+          id="theme-switcher"
+          aria-label="theme switcher"
+        ></button>
+        <button
+          class="controls__settings-btn btn_text-only btn-hover-focus"
+          id="settings-open-btn"
+          aria-label="settings"
+        ></button>
 
-        <label for="fetch-rand"
-          >Загружать случайные значения?
-          <input type="checkbox" id="fetch-rand" name="fetch-rand" />
-        </label>
+        <div class="controls__settings-menu hidden" id="settings-menu">
+          <h3 class="settings-menu__title">
+            <span data-l10n="settings-title">Settings</span>
+          </h3>
+          <label class="settings-menu__item-label" for="save-locally">
+            <input
+              type="checkbox"
+              class="input-checkbox_grey"
+              id="save-locally"
+              name="save-locally"
+              checked
+            />
+            <span data-l10n="settings-save-locally-label">
+              Save list into local storage
+            </span>
+          </label>
+
+          <label class="settings-menu__item-label" for="fetch-rand">
+            <input
+              type="checkbox"
+              class="input-checkbox_grey"
+              id="fetch-rand"
+              name="fetch-rand"
+            />
+            <span data-l10n="settings-fetch-rand-label">
+              [DEBUG] Load random list
+            </span>
+          </label>
+          <span id="fetch-rand-count" class="hidden"></span>
+
+          <button
+            class="settings-menu__close-btn btn_text-only btn-hover-focus"
+            id="settings-close-btn"
+            aria-label="close settings"
+          ></button>
+        </div>
       </div>
-
-      <label for="dark-mode" class="theme-switch theme-switch-light">
-        <input type="checkbox" id="dark-mode" name="dark-mode" />
-      </label>
+      <h1 class="header__title">
+        <span data-l10n="header-title">Todo List</span>
+      </h1>
+      <div class="header__right-panel">
+        <button
+          class="trash-btn btn_text-only"
+          id="trash-btn"
+          aria-label="clear whole list"
+        ></button>
+      </div>
     </header>
 
-    <main id="main">
-      <ul class="todos-list" id="todos"></ul>
+    <main class="main">
+      <div class="main__container">
+        <div class="main__list-options">
+          <label for="show-completed" class="show-completed-checkbox">
+            <input
+              type="checkbox"
+              id="show-completed"
+              class="input-checkbox_grey"
+              aria-label="show completed todos"
+              onclick="alert('Coming soon!'); this.checked = false;"
+            />
+            <span data-l10n="show-completed-label">Switch to completed</span>
+          </label>
 
-      <form id="todo-add-form">
-        <input
-          type="text"
-          id="todo-input"
-          class="todo-input"
-          placeholder="Что хотите сделать?"
-          autocomplete="off"
-        />
-        <button id="todo-add-btn" type="submit" disabled>Добавить</button>
+          <button
+            class="sort-btn btn_text-only"
+            id="sort-btn"
+            aria-label="sort from latest to earliest"
+          >
+            <span class="sort-btn__text" data-l10n="sort-btn-text">
+              By creation time
+            </span>
+            <svg
+              class="sort-btn__icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="arcs"
+            >
+              <path d="M18 15l-6-6-6 6" />
+            </svg>
+          </button>
+        </div>
+        <ul class="main__todo-list" id="todo-list"></ul>
+      </div>
+      <form class="main__todo-form" id="todo-form">
+        <div class="todo-form__form-container form-center-item">
+          <textarea
+            type="text"
+            class="form-container__textarea scrollable"
+            id="form-textarea"
+            data-l10n-placeholder="form-textarea"
+            placeholder="Planning something?"
+            autocomplete="off"
+            rows="1"
+            for="todo-form"
+          ></textarea>
+        </div>
+        <div class="todo-form__form-container">
+          <button
+            class="form-container__btn"
+            id="form-btn"
+            type="submit"
+            disabled
+          >
+            <span data-l10n="form-submit-btn-text">Add</span>
+          </button>
+        </div>
       </form>
     </main>
 
-    <footer id="footer">
-      <p>yeah, and?</p>
+    <footer class="footer">
+      <div class="footer__toolbar">
+        <div id="lang-list-container" class="hidden">
+          <ul class="footer__lang-list">
+            <li>
+              <button
+                id="ru-lang-btn"
+                class="btn_text-only btn_text-only-alt"
+                aria-label="russian"
+              >
+                <span>Русский</span>
+              </button>
+            </li>
+            <li>
+              <button
+                id="en-lang-btn"
+                class="btn_text-only btn_text-only-alt"
+                aria-label="english"
+              >
+                <span>English</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <button
+          class="btn_text-only btn_text-only-alt"
+          id="l10n-btn"
+          aria-label="change language"
+        >
+          <span data-l10n="l10n-btn-text">EN</span>
+        </button>
+        <button
+          class="btn_text-only btn_text-only-alt"
+          id="export-btn"
+          aria-label="export list"
+          onclick="alert('Export coming soon!')"
+        >
+          <span data-l10n="export-btn-text">Export</span>
+        </button>
+        <button
+          class="btn_text-only btn_text-only-alt"
+          id="import-btn"
+          aria-label="import list"
+          onclick="alert('Import coming soon!')"
+        >
+          <span data-l10n="import-btn-text">Import</span>
+        </button>
+      </div>
+      <p class="footer__text">yeah, and?</p>
+      <a
+        href="https://github.com/KOTEKOBOE/night-without-stars"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        class="footer__gh-link"
+      ></a>
     </footer>
 
-    <script src="todo.js"></script>
+    <script src="./src/index.js"></script>
+    <script src="./src/l10n/l10n.js"></script>
+    <script src="./src/theme/themeSwitch.js"></script>
+    <script src="./src/todo/todo.js"></script>
+    <script src="./src/todo/addTodo.js"></script>
+    <script src="./src/localstore/saveLocally.js"></script>
+    <script src="./src/todo/sort.js"></script>
+    <script src="./src/todo/trashbin.js"></script>
+    <script src="./src/debug/fetchRandom.js"></script>
+    <script src="./src/modals/settingsModal.js"></script>
   </body>
 </html>
